@@ -29,15 +29,19 @@ module StrWatch
 
       end
 
-
       # Creates a dirty binding which uses a polling interview
       # This however decouples it from activerecord
       #
-      # dirty_binding :variable do
-      #   10000000 * rand   
+      # Accepts a variable name to bind the data to
+      # an option hash:
+      #     interval: time between dirty checks
+      # block to evaluate and stream
+      #
+      # dirty_binding(:rand, interval: 4.seconds) do |x|
+      #   "#{x}: #{10000000 * rand}"
       # end
       #
-      def dirty_binding(name, &block)
+      def dirty_binding(name, options = {}, &block)
 
       end
       
