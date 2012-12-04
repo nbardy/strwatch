@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["nicholasbardy@yahoo.com"]
   gem.description   = %q{Live updates in views with data-binding to models}
   gem.summary       = %q{Live views}
-  gem.homepage      = ""
+  gem.homepage      = "www.nicholasbardy.com"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "sqlite3"
+  gem.add_development_dependency "rake"
 
   gem.add_dependency "activerecord"
   gem.add_dependency "actionpack"
