@@ -1,6 +1,4 @@
 require "strwatch/version"
-require "./strwatch/model"
-require "./strwatch/controller"
 
 # Include helper functions in ActiveRecord::Base
 # These will watch the models for changes
