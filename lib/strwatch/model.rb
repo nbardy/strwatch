@@ -18,3 +18,9 @@ module StrWatch
     end
   end
 end
+
+# Include helper functions in ActiveRecord::Base
+# These will watch the models for changes
+class ActiveRecord::Base
+  include StrWatch::Model
+end

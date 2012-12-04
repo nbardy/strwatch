@@ -12,4 +12,7 @@ module StrWatch
   end
 end
 
-
+# Include streaming functions in ActionController::Base
+class ActionController::Base
+  include StrWatch::Controller
+end
