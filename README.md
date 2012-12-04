@@ -85,6 +85,10 @@ I've built it with activerecord dependency because it was made to take use of Ra
 
 I find it much nicer to be listening for changes as opposed to frequently checking for them.
 
+## Needs
+  - Tests
+  - Better way to bind multiple thing(bind_many)
+
 ## Contributing
 
 1. Fork it
