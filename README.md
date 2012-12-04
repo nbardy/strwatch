@@ -44,7 +44,7 @@ end
 ```
 Add the bindings in the views
 
-```html
+```ruby
 # app/views/events/show.html.erb
 <% live_stream(:event) do |event| %>
     <div id="event">
