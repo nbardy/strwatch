@@ -44,7 +44,7 @@ end
 ```
 Add the bindings in the views
 
-```ruby
+```erb
 # app/views/events/show.html.erb
 <% live_stream(:event) do |event| %>
     <div id="event">
@@ -65,10 +65,6 @@ Add the bindings in the views
     </table>
 <% end %>
 
-```
-
-
-# app/views/event
 ```
 
 ## Desgin Decisions

@@ -18,5 +18,9 @@ module Strwatch
       out[@var_name] = data
       @io.write out.to_json
     end
+
+    def close
+      @io.close
+    end
   end
 end
