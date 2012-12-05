@@ -1,10 +1,15 @@
 require 'action_controller'
 
-module StrWatch
+module Strwatch
   module Controller
     extend ActiveSupport::Concern
 
     module ClassMethods
+
+      # Include ActionController::Live for streaming api
+      included do
+        include ActionController::Live
+      end
 
       # Creates a binding between an activerecord model
       #
@@ -21,6 +26,10 @@ module StrWatch
       end
 
       # Binds many objects to the variable given
+      #
+      ###############
+      ### Example ###
+      ###############
       #
       # bind_many Event, :events do
       #   Event.all
@@ -42,7 +51,21 @@ module StrWatch
       # end
       #
       def dirty_binding(name, options = {}, &block)
+        # Has the client keep the connection open
+        response.headers['Content-Type'] = 'text/event-stream'
 
+        connection = StrWatch::Connection.new(response.stream)
+
+        begin
+          loop do 
+            connection.write block.call
+            sleep 1
+          end
+        rescue IOError # When client disconnects
+
+        ensure
+          connection.close
+        end
       end
       
       def render_stream(view, streams*)
@@ -50,9 +73,4 @@ module StrWatch
       end
     end
   end
-end
-
-# Include streaming functions in ActionController::Base
-class ActionController::Base
-  include StrWatch::Controller
 end

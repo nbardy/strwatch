@@ -1,7 +1,7 @@
 require 'active_support/concern'
 require 'active_record'
 
-module StrWatch
+module Strwatch
   module Model
     extend ActiveSupport::Concern
 
@@ -14,13 +14,9 @@ module StrWatch
     end
 
     module ClassMethods
-
+      def bar
+        "bar"
+      end
     end
   end
-end
-
-# Include helper functions in ActiveRecord::Base
-# These will watch the models for changes
-class ActiveRecord::Base
-  include StrWatch::Model
 end
