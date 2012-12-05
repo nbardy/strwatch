@@ -6,7 +6,7 @@ module Strwatch
     #  io: response.stream
     #  var_name: name of variable to be bound
     #
-    def initialize io, var_name,
+    def initialize io, var_name
       @io = io
       @var_name = var_name
     end
