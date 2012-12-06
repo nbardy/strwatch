@@ -63,7 +63,7 @@ module Strwatch
 
       begin
         loop do 
-          connection.write block.call
+          connection.stream block.call
           sleep interval
         end
       rescue IOError # When client disconnects

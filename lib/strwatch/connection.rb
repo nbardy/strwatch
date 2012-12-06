@@ -11,13 +11,20 @@ module Strwatch
       @var_name = var_name
     end
 
+    # Updates the stream with data
+    def stream(html)
+      write(html, :event => "strwatch-#{@var_name}")
+    end
+
+    # Closes the connection
+    def close
+      @io.close
+    end
 
     # Writes a server side event accorind to this format
     # http://www.html5rocks.com/en/tutorials/eventsource/basics/
     #
-    private
     def write(data, options = {})
-
       unless data.is_a? String
         data = JSON.dump(data)
       end
@@ -27,14 +34,5 @@ module Strwatch
       @io.write "data: #{data}\n\n"
     end
 
-    # Updates the stream with data
-    def update(html)
-      write(html, :event => "strwatch-#{@var_name}")
-    end
-
-    # Closes the connection
-    def close
-      @io.close
-    end
   end
 end
