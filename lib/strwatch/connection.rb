@@ -11,14 +11,28 @@ module Strwatch
       @var_name = var_name
     end
 
-    # Wraps the data in a configured strwatch hash 
-    # Then output as json
-    def write(data)
-      out = { type: "strwatch", "str-var_name" => @var_name }
-      out[@var_name] = data
-      @io.write out.to_json
+
+    # Writes a server side event accorind to this format
+    # http://www.html5rocks.com/en/tutorials/eventsource/basics/
+    #
+    private
+    def write(data, options = {})
+
+      unless data.is_a? String
+        data = JSON.dump(data)
+      end
+      options.each do |k,v|
+        @io.write "#{k}: #{v}\n"
+      end
+      @io.write "data: #{data}\n\n"
     end
 
+    # Updates the stream with data
+    def update(html)
+      write(html, :event => "strwatch-#{@var_name}")
+    end
+
+    # Closes the connection
     def close
       @io.close
     end

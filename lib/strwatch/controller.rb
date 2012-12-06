@@ -45,6 +45,14 @@ module Strwatch
     # end
     #
     def dirty_binding(name, options = {}, &block)
+      # Set instance variable for original rendering before streaming is established
+      instance_variable_set("@#{name}", block.call)
+
+      # Check if the request is initial or for streaming content
+      unless params[STREAMING_PARAM]
+        return false
+      end
+
       # Handle options
       interval = options[:interval] || 5
 
@@ -63,10 +71,6 @@ module Strwatch
       ensure
         connection.close
       end
-    end
-    
-    def render_stream(view, streams)
-    
     end
   end
 end
