@@ -14,11 +14,9 @@ module Strwatch
 
       # Get initial variable from @"name" instance variable set by controller
       initial_data = instance_variable_get("@#{name}")
-      puts "initial_data: #{initial_data}"
 
       # Set up mustache rendering if block is given 
       if block_given?
-        puts "block: #{capture(&block)}"
 
         render = "var out = Mustache.render(\"#{capture(&block)}\", view);"
         initial_render = 

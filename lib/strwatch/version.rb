@@ -1,4 +1,3 @@
 module Strwatch
-  VERSION = "0.0.5"
-  HI = 'r'
+  VERSION = "0.1.0.beta"
 end
