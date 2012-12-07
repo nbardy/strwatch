@@ -26,7 +26,7 @@ module Strwatch
     #
     def write(data, options = {})
       unless data.is_a? String
-        data = JSON.dump(data)
+        data = data.to_json
       end
       options.each do |k,v|
         @io.write "#{k}: #{v}\n"

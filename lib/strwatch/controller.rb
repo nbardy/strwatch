@@ -54,7 +54,13 @@ module Strwatch
       end
 
       # Handle options
+      
+      # Default interval is 5
       interval = options[:interval] || 5
+
+      # Wraps the data in a hash with its name as root
+      wrap = options[:wrap] || false
+      
 
       # Has the client keep the connection open
       response.headers['Content-Type'] = 'text/event-stream'
@@ -63,7 +69,12 @@ module Strwatch
 
       begin
         loop do 
-          connection.stream block.call
+          data = block.call
+          if wrap
+            data = { name => data }
+          end
+
+          connection.stream data
           sleep interval
         end
       rescue IOError # When client disconnects

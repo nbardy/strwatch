@@ -56,11 +56,10 @@ Currently only supports (Mustache.js)[https://mustache.github.com] templates
 
 
 # app/views/events/index.html.erb
-<% live_stream(:events) do %>
+<% stream(:events) do %>
     <table id="events">
     {{#events}} 
-        <tr>{{event.name}}</tr>
-        <tr>ID:{{event.id}}</tr>
+        <tr>name: {{event.name}}, ID:{{event.id}}</tr>
     {{/events}}
     </table>
 <% end %>
