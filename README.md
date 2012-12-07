@@ -18,50 +18,50 @@ Or install it yourself as:
 
 ## Usage
 
+### This gem is currently still a work in progress
+Currently the only bindings working are dirty_binding which check for new data at a given interval.(Oh how dirty)
+
+### Instructions
+
 Create the bindings in the controller actions and attached to a stream
 ```ruby
 # app/controllers/event_controller.rb
 ...
 
 def show
-  event_binding = bind_one :event do
-    Event.find(params[:id])
+  dirty_binding :event do
+    Event.first
   end
-
-  # Renders 'views/event' with event_binding
-  render_stream "events/show", event_binding
 end
 
 def index
-  events_binding = bind_one :events, Event do
+  dirty_binding :events do
     Event.all
   end
-
-  # Renders 'views/events' with events_binding
-  render_stream "events/index", events_binding
 end
+
 ...
 ```
 Add the bindings in the views
+Currently only supports (Mustache.js)[https://mustache.github.com] templates
 
 ```erb
 # app/views/events/show.html.erb
-<% live_stream(:event) do |event| %>
+<% stream(:event) do %>
     <div id="event">
-        <h1><%= event.name %></h1>
-        ID:<%= event.id %>
+        <h1>{{event.name}}</h1>
+        ID: {{event.id }}
     </div>
 <% end %>
 
 
 # app/views/events/index.html.erb
-<% live_stream(:events) do |events| %>
-    <table id="event">
-    <% events.each do |event| %>
-        <tr>
-        <%= event.name %></h1>
-        ID:<%= event.id %>
-    <% end %>
+<% live_stream(:events) do %>
+    <table id="events">
+    {{#events}} 
+        <tr>{{event.name}}</tr>
+        <tr>ID:{{event.id}}</tr>
+    {{/events}}
     </table>
 <% end %>
 
@@ -69,21 +69,15 @@ Add the bindings in the views
 
 ## Desgin Decisions
 
-This gem's design/syntax is very much a work in progress and I welcome any and all ideas/changes the
+This gem's design/syntax is very much a work in progress and I welcome any and all ideas/changes.
 
 Goals to keep in mind are:
 1. Simplicity.
 2. Data-binding.  Not data streaming.
 3. MVC-orientated. 
 
-######Notes on ActiveRecord Dependencies
-I've built it with activerecord dependency because it was made to take use of Rails 4 Streaming and because of the rails dependenancy the ActiveRecord Dependency is there. A big factor in the tight integration with AR is the ability to data-bind using AR callbacks to eliminate the need to frequently check for updates.
-
-I find it much nicer to be listening for changes as opposed to frequently checking for them.
-
 ## Needs
   - Tests
-  - Better way to bind multiple thing(bind_many)
 
 ## Contributing
 
