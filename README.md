@@ -49,8 +49,8 @@ Currently only supports (Mustache.js)[https://mustache.github.com] templates
 # app/views/events/show.html.erb
 <% stream(:event) do %>
     <div id="event">
-        <h1>{{event.name}}</h1>
-        ID: {{event.id }}
+        <h1>{{name}}</h1>
+        ID: {{id}}
     </div>
 <% end %>
 
@@ -59,14 +59,14 @@ Currently only supports (Mustache.js)[https://mustache.github.com] templates
 <% stream(:events) do %>
     <table id="events">
     {{#events}} 
-        <tr>name: {{event.name}}, ID:{{event.id}}</tr>
+        <tr>name: {{name}}, ID:{{id}}</tr>
     {{/events}}
     </table>
 <% end %>
 
 ```
 
-## Desgin Decisions
+## Design Decisions
 
 This gem's design/syntax is very much a work in progress and I welcome any and all ideas/changes.
 
