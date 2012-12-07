@@ -17,17 +17,29 @@ module Strwatch
 
       # Set up mustache rendering if block is given 
       if block_given?
+        # Set template inside of a script to get around the lack of multiline strings in javascript. Shame on you javascript.
+        mustache_template =
+          """
+          <script id='strwatch-template-#{name}' type='text/html'>
+            #{capture(&block)}
+          </script>
+          """
 
-        render = "var out = Mustache.render(\"#{capture(&block)}\", view);"
+        # Create javascript used to render the template
+        render = "var out = Mustache.to_html(template, view);"
+
+        # First rendering using non streamed data and setting up template
         initial_render = 
           """
+          var template = document.getElementById('strwatch-template-#{name}').innerHTML;
           var view = #{initial_data.to_json};
           #{render}
           """
 
+        # Rendering using data recieved from Server Side Events
         data_response = 
           """
-          var view = event.data;
+          var view = JSON.parse(event.data);
           #{render}
           """
       else
@@ -39,6 +51,7 @@ module Strwatch
         """
         <div id=\"#{id}\">
         </div>
+        #{mustache_template}
         <script>
           var source = new EventSource(\"#{streaming_url}\");
           #{initial_render}
