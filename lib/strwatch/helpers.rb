@@ -6,11 +6,17 @@ module Strwatch
     extend ActiveSupport::Concern
     
     def stream(name, options={}, &block)
+      # Handle options
+      
+      # Default wrapper tag is options
+      tag = options[:tag] || 'div'
+      
       url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
       streaming_url = url +
         "?#{STREAMING_PARAM}=true"
 
       id = "strwatch-content-#{name}"
+
 
       # Get initial variable from @"name" instance variable set by controller
       initial_data = instance_variable_get("@#{name}")
@@ -49,8 +55,8 @@ module Strwatch
 
       output = 
         """
-        <div id=\"#{id}\">
-        </div>
+        <#{tag} id=\"#{id}\">
+        </#{tag}>
         #{mustache_template}
         <script>
           var source = new EventSource(\"#{streaming_url}\");
