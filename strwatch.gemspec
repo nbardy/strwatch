@@ -23,6 +23,10 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "sqlite3"
   gem.add_development_dependency "rake"
 
+  # Rails stuff
   gem.add_dependency "activerecord"
   gem.add_dependency "actionpack"
+  gem.add_dependency "activesupport"
+  
+  gem.add_dependency "json"
 end

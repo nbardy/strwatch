@@ -14,8 +14,14 @@ module Strwatch
     end
 
     module ClassMethods
-      def bar
-        "bar"
+      def stream
+
+      end
+    end
+    
+    module InstanceMethods
+      def stream
+
       end
     end
   end

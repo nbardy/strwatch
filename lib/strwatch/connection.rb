@@ -12,8 +12,13 @@ module Strwatch
     end
 
     # Updates the stream with data
-    def stream(html)
-      write(html, :event => "strwatch-#{@var_name}")
+    def stream(data, options = {})
+    # Handle options
+      if options[:wrap]
+        data = { @var_name => data }
+      end
+
+      write(data, :event => "strwatch-#{@var_name}")
     end
 
     # Closes the connection
@@ -33,6 +38,5 @@ module Strwatch
       end
       @io.write "data: #{data}\n\n"
     end
-
   end
 end

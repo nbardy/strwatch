@@ -5,18 +5,24 @@ module Strwatch
   module Helpers
     extend ActiveSupport::Concern
     
+    ## Accpets options:
+    #       debug | Wether or not to console.log incoming data on client side
+    #       tag | HTML tag to wrap code in
+    #   
     def stream(name, options={}, &block)
       # Handle options
       
-      # Default wrapper tag is options
+      # Default wrapper tag is a div
       tag = options[:tag] || 'div'
+
+      # Default debug is false
+      debug = options[:debuf] || false
       
       url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
       streaming_url = url +
         "?#{STREAMING_PARAM}=true"
 
       id = "strwatch-content-#{name}"
-
 
       # Get initial variable from @"name" instance variable set by controller
       initial_data = instance_variable_get("@#{name}")
@@ -48,11 +54,22 @@ module Strwatch
           var view = JSON.parse(event.data);
           #{render}
           """
+
       else
         initial_render = "var out = #{initial_data};"
         data_response = "var out = event.data;"
       end
 
+      # console.log if debug is option is on
+      if debug
+        data_response = """
+        #{data_response}
+        console.log(out);
+        """
+      end
+
+
+      # Create the output which is added to the view
       output = 
         """
         <#{tag} id=\"#{id}\">
@@ -60,7 +77,7 @@ module Strwatch
         #{mustache_template}
         <script>
           var source = new EventSource(\"#{streaming_url}\");
-          #{initial_render}
+t         #{initial_render}
           $(\"##{id}\").html(out);
 
           source.addEventListener('strwatch-#{name}', function(event) {

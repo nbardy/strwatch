@@ -28,6 +28,8 @@ Create the bindings in the controller actions and attached to a stream
 # app/controllers/event_controller.rb
 ...
 
+include Strwatch::Controller
+
 def show
   dirty_binding :event do
     Event.first
@@ -43,7 +45,10 @@ end
 ...
 ```
 Add the bindings in the views
-Currently only supports (Mustache.js)[https://mustache.github.com] templates
+Currently supports [ Mustache.js ]( https://mustache.github.com ) templates
+
+Note: erb cannot be used inside the streaming portion because that portion of the view is being rendered client side on each update.  Only the json data is streamed to the client not the html view.
+
 
 ```erb
 # app/views/events/show.html.erb
