@@ -69,7 +69,7 @@ module Strwatch
       end
 
 
-      # Create the output which is added to the view
+      # Create/the output which is added to the view
       output = 
         """
         <#{tag} id=\"#{id}\">
@@ -77,7 +77,7 @@ module Strwatch
         #{mustache_template}
         <script>
           var source = new EventSource(\"#{streaming_url}\");
-t         #{initial_render}
+          #{initial_render}
           $(\"##{id}\").html(out);
 
           source.addEventListener('strwatch-#{name}', function(event) {

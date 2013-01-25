@@ -18,7 +18,7 @@ module Strwatch
     #
     # Event.after_save = stream_callback
     #
-    def stream_callback(name, block)
+    def stream_callback(name, options = {}, &block)
       if not block
         throw ArgumentError
       end
@@ -50,9 +50,6 @@ module Strwatch
         #
         # Default interval is 5
         interval = options[:interval] || 5
-
-        # Wraps the data in a hash with its own name as root
-        wrap = options[:wrap] ||= false
 
         # Has the client keep the connection open
         response.headers['Content-Type'] = 'text/event-stream'

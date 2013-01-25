@@ -13,6 +13,9 @@ module Strwatch
 
     # Updates the stream with data
     def stream(data, options = {})
+    # Wraps the data in a hash with its own name as root
+    wrap = options[:wrap] ||= true
+
     # Handle options
       if options[:wrap]
         data = { @var_name => data }
