@@ -23,14 +23,23 @@ module Strwatch
         throw ArgumentError
       end
 
+
       # Set instance variable for original rendering before streaming is established
       instance_variable_set("@#{name}", block.call)
 
-      response.headers['Content-Type'] = 'text/event-stream'
+      # Check if the request is initial or for streaming content
+      #
+      # If the request is not for streaming ignore the rest of the code
+      unless params[STREAMING_PARAM]
+        return false
+      else
 
-      connection = Strwatch::Connection.new(response.stream, name)
+        response.headers['Content-Type'] = 'text/event-stream'
 
-      lambda { connection.stream(block.call, options) }
+        connection = Strwatch::Connection.new(response.stream, name)
+
+        lambda { connection.stream(block.call, options) }
+      end
     end
 
     def dirty_binding(name, options = {}, &block)

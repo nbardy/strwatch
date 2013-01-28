@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  brand: MyString
+  type: 
+  top_speed: 1
+  weight: 1
+
+two:
+  brand: MyString
+  type: 
+  top_speed: 1
+  weight: 1

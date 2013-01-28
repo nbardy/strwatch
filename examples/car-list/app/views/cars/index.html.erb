@@ -1,0 +1,17 @@
+<h1>Listing cars</h1>
+  <% stream(:cars, tag: "table") do %>
+  {{#cars}}
+  <tr>
+    <td>{{brand}}<td>
+    <td>{{type}}<td>
+    <td>{{speed}}<td>
+    <td>{{weight}}<td>
+  </tr>
+  {{/cars}}
+  <% end %>
+</table>
+<hr />
+
+<%= render 'form' %>
+
+<br />

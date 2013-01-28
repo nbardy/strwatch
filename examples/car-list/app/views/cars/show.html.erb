@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @car.brand %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @car.type %>
+</p>
+
+<p>
+  <strong>Top speed:</strong>
+  <%= @car.top_speed %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @car.weight %>
+</p>
+
+
+<%= link_to 'Edit', edit_car_path(@car) %> |
+<%= link_to 'Back', cars_path %>
