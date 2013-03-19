@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["nicholasbardy@yahoo.com"]
   gem.description   = %q{Live updates in views with data-binding to models}
   gem.summary       = %q{Live views}
-  gem.homepage      = "http://www.nicholasbardy.com"
+  gem.homepage      = "http://github.com/nbardy/strwatch"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
