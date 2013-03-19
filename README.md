@@ -4,17 +4,13 @@ A rails gem for databing active-record models and querries to views.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Clone this repository
 
-    gem 'strwatch'
-
-And then execute:
-
-    $ bundle
+    $ git clone https://github.com/DivisibleZero/strwatch
 
 Or install it yourself as:
 
-    $ gem install strwatch
+    $ rake install
 
 ## Usage
 
@@ -44,14 +40,15 @@ end
 
 ...
 ```
-Add the bindings in the views
+Add the bindings in the views.
 Currently supports [ Mustache.js ]( https://mustache.github.com ) templates
 
 Note: erb cannot be used inside the streaming portion because that portion of the view is being rendered client side on each update.  Only the json data is streamed to the client not the html view.
 
 
 ```erb
-# app/views/events/show.html.erb
+<!-- app/views/events/show.html.erb -->
+
 <% stream(:event) do %>
     <div id="event">
         <h1>{{name}}</h1>
@@ -61,7 +58,7 @@ Note: erb cannot be used inside the streaming portion because that portion of th
 
 
 # app/views/events/index.html.erb
-<% stream(:events) do %>
+<!-- stream(:events) do -->
     <table id="events">
     {{#events}} 
         <tr>name: {{name}}, ID:{{id}}</tr>
@@ -76,9 +73,10 @@ Note: erb cannot be used inside the streaming portion because that portion of th
 This gem's design/syntax is very much a work in progress and I welcome any and all ideas/changes.
 
 Goals to keep in mind are:
+
 1. Simplicity.
-2. Data-binding.  Not data streaming.
-3. MVC-orientated. 
+2. Data-binding. 
+3. MVC-orientated.
 
 ## Needs
   - Tests
